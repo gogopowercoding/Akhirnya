@@ -10,7 +10,6 @@ public class RiwayatPembayaranDAO {
     public RiwayatPembayaranDAO(Connection connection) {
         this.connection = connection;
     }
-
     public List<RiwayatPembayaran> getRiwayatByUserId(int userId) throws SQLException {
         List<RiwayatPembayaran> riwayatList = new ArrayList<>();
         String query = "SELECT p.id, p.pajak_id, p.tanggal_bayar, p.jumlah_bayar, p.metode, "

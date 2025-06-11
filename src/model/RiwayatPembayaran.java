@@ -28,7 +28,6 @@ public class RiwayatPembayaran {
         this.totalBayar = totalBayar;
     }
 
-    // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public int getPajakId() { return pajakId; }

@@ -21,59 +21,44 @@ public class PajakKendaraanForm extends JFrame {
     private PajakDAO pajakDAO;
 
     public PajakKendaraanForm() {
-        // Initialize controller and DAO
         controller = new PajakController();
         pajakDAO = new PajakDAO();
 
-        // Set up the frame
         setTitle("Perhitungan Pajak Kendaraan");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Ubah ke DISPOSE agar tidak menutup aplikasi sepenuhnya
-        setSize(400, 300);
-        setLocationRelativeTo(null); // Center the window
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(450, 400);
+        setLocationRelativeTo(null);
 
-        // Custom styling
-        getContentPane().setBackground(new Color(240, 248, 255)); // Light blue background
-        setFont(new Font("Arial", Font.PLAIN, 14));
+        getContentPane().setBackground(Color.WHITE);
+        setLayout(new BorderLayout(10, 10));
 
-        // Create components
-        JPanel inputPanel = new JPanel(new GridBagLayout());
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        // Input Panel
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridBagLayout());
+        inputPanel.setBorder(BorderFactory.createTitledBorder("Input Data"));
+        inputPanel.setBackground(Color.WHITE);
+
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
         JLabel kendaraanIdLabel = new JLabel("ID Kendaraan:");
-        kendaraanIdLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        kendaraanIdField = new JTextField(10);
-        kendaraanIdField.setFont(new Font("Arial", Font.PLAIN, 14));
+        kendaraanIdLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        kendaraanIdField = new JTextField(15);
+        kendaraanIdField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
         JLabel dendaLabel = new JLabel("Denda:");
-        dendaLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        dendaField = new JTextField(10);
-        dendaField.setFont(new Font("Arial", Font.PLAIN, 14));
+        dendaLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        dendaField = new JTextField(15);
+        dendaField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
         JButton calculateButton = new JButton("Hitung Pajak");
-        calculateButton.setFont(new Font("Arial", Font.BOLD, 14));
-        calculateButton.setBackground(new Color(70, 130, 180)); // Steel blue
+        calculateButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        calculateButton.setBackground(new Color(52, 152, 219));
         calculateButton.setForeground(Color.WHITE);
         calculateButton.setFocusPainted(false);
+        calculateButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        // Result panel
-        JPanel resultPanel = new JPanel(new GridLayout(4, 1, 10, 10));
-        resultPanel.setBorder(BorderFactory.createTitledBorder("Hasil Perhitungan"));
-        resultPanel.setBackground(new Color(245, 245, 245)); // Light gray
-
-        jumlahPajakLabel = new JLabel("Jumlah Pajak: -");
-        totalBayarLabel = new JLabel("Total Bayar: -");
-        jatuhTempoLabel = new JLabel("Jatuh Tempo: -");
-        statusLabel = new JLabel("Status: -");
-
-        jumlahPajakLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        totalBayarLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        jatuhTempoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        statusLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        // Layout
         gbc.gridx = 0;
         gbc.gridy = 0;
         inputPanel.add(kendaraanIdLabel, gbc);
@@ -89,17 +74,46 @@ public class PajakKendaraanForm extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
         inputPanel.add(calculateButton, gbc);
 
+        // Result Panel
+        JPanel resultPanel = new JPanel();
+        resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
+        resultPanel.setBorder(BorderFactory.createTitledBorder("Hasil Perhitungan"));
+        resultPanel.setBackground(new Color(250, 250, 250));
+
+        jumlahPajakLabel = new JLabel("Jumlah Pajak: -");
+        totalBayarLabel = new JLabel("Total Bayar: -");
+        jatuhTempoLabel = new JLabel("Jatuh Tempo: -");
+        statusLabel = new JLabel("Status: -");
+
+        Font labelFont = new Font("Segoe UI", Font.PLAIN, 14);
+        jumlahPajakLabel.setFont(labelFont);
+        totalBayarLabel.setFont(labelFont);
+        jatuhTempoLabel.setFont(labelFont);
+        statusLabel.setFont(labelFont);
+
+        jumlahPajakLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        totalBayarLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jatuhTempoLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        statusLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        resultPanel.add(Box.createVerticalStrut(10));
         resultPanel.add(jumlahPajakLabel);
+        resultPanel.add(Box.createVerticalStrut(5));
         resultPanel.add(totalBayarLabel);
+        resultPanel.add(Box.createVerticalStrut(5));
         resultPanel.add(jatuhTempoLabel);
+        resultPanel.add(Box.createVerticalStrut(5));
         resultPanel.add(statusLabel);
+        resultPanel.add(Box.createVerticalStrut(10));
 
-        add(inputPanel, BorderLayout.CENTER);
-        add(resultPanel, BorderLayout.SOUTH);
+        // Add panels to frame
+        add(inputPanel, BorderLayout.NORTH);
+        add(resultPanel, BorderLayout.CENTER);
 
-        // Add action listener to the button
+        // Button action
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,7 +121,6 @@ public class PajakKendaraanForm extends JFrame {
             }
         });
 
-        // Display the frame
         setVisible(true);
     }
 
@@ -116,19 +129,15 @@ public class PajakKendaraanForm extends JFrame {
             int kendaraanId = Integer.parseInt(kendaraanIdField.getText().trim());
             double denda = Double.parseDouble(dendaField.getText().trim());
 
-            // Call controller to calculate pajak
             PajakKendaraan pajak = controller.hitungPajak(kendaraanId, denda);
 
-            // Update labels with results
             jumlahPajakLabel.setText(String.format("Jumlah Pajak: %.2f", pajak.getJumlahPajak()));
             totalBayarLabel.setText(String.format("Total Bayar: %.2f", pajak.getTotalBayar()));
-            jatuhTempoLabel.setText(String.format("Jatuh Tempo: %s", pajak.getJatuhTempo()));
-            statusLabel.setText(String.format("Status: %s", pajak.getStatus()));
+            jatuhTempoLabel.setText("Jatuh Tempo: " + pajak.getJatuhTempo());
+            statusLabel.setText("Status: " + pajak.getStatus());
 
-            // Save to database
-            pajakDAO.save(pajak); // Memanggil metode save dari PajakKendaraanDAO
+            pajakDAO.save(pajak);
             JOptionPane.showMessageDialog(this, "Data pajak berhasil disimpan!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Masukkan angka yang valid untuk ID Kendaraan dan Denda!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {

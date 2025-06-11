@@ -12,7 +12,6 @@ public class KoneksidB {
     private static final String USER = "root";
     private static final String PASS = "";
 
-    // Mendapatkan koneksi ke database
     public static Connection getKoneksi() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

@@ -20,7 +20,6 @@ public class KendaraanTambah {
         this.cc = cc;
     }
 
-   // Getters
     public int getId() { return id; }
     public int getUserId() { return userId; }
     public String getNomorPolisi() { return nomorPolisi; }
@@ -30,7 +29,6 @@ public class KendaraanTambah {
     public double getHarga() { return harga; }
     public String getCc() { return cc; }
 
-    // Setters
     public void setId(int id) { this.id = id; }
     public void setUserId(int userId) { this.userId = userId; }
     public void setNomorPolisi(String nomorPolisi) { this.nomorPolisi = nomorPolisi; }

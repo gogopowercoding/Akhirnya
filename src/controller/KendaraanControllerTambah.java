@@ -25,7 +25,6 @@ public class KendaraanControllerTambah {
     }
 }
 
-
     public boolean tambahKendaraan(KendaraanTambah kendaraan) throws Exception {
         return kendaraanDAO.insert(kendaraan);
     }

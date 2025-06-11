@@ -69,7 +69,7 @@ public class BayarPajakDAO {
     }
 
     public double getTotalBayarByPajakId(int pajakId) throws SQLException {
-        String query = "SELECT total_bayar FROM pajak WHERE pajak_id = ?"; // Diubah dari 'id' menjadi 'pajak_id'
+        String query = "SELECT total_bayar FROM pajak WHERE pajak_id = ?"; 
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {

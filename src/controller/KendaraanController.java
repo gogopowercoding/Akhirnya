@@ -43,7 +43,7 @@ public class KendaraanController {
     public Object[] getKendaraanDetail(int kendaraanId, int userId) throws SQLException {
         try {
             Object[] kendaraan;
-            if (userId == 1) { // Admin (userId = 1) dapat mengakses semua kendaraan
+            if (userId == 1) { 
                 kendaraan = model.getKendaraanById(kendaraanId);
             } else {
                 kendaraan = model.getKendaraanByIdAndUser(kendaraanId, userId);
@@ -63,7 +63,7 @@ public class KendaraanController {
     public boolean update(int kendaraanId, int userId, String nomorPolisi, String merk, String jenis, int tahun, double harga, String cc) throws SQLException {
         try {
             boolean result;
-            if (userId == 1) { // Admin dapat memperbarui semua kendaraan
+            if (userId == 1) { 
                 result = model.updateKendaraan(kendaraanId, nomorPolisi, merk, jenis, tahun, harga, cc);
             } else {
                 result = model.updateKendaraan(kendaraanId, userId, nomorPolisi, merk, jenis, tahun, harga, cc);
@@ -78,7 +78,6 @@ public class KendaraanController {
 
     public boolean delete(int kendaraanId, int userId) throws SQLException {
         try {
-            // Cek apakah ada entri pajak terkait
             List<Object[]> pajakList = pajakDAO.getPajakByKendaraanId(kendaraanId);
             if (!pajakList.isEmpty()) {
                 int confirm = JOptionPane.showConfirmDialog(null,
@@ -89,14 +88,12 @@ public class KendaraanController {
                     return false;
                 }
             }
-
-            // Hapus entri pajak terkait
+            
             boolean pajakDeleted = pajakDAO.deletePajakByKendaraanId(kendaraanId, userId);
             if (!pajakDeleted && userId != 1) {
                 System.out.println("No pajak entries to delete for kendaraanId: " + kendaraanId + ", userId: " + userId);
             }
 
-            // Hapus kendaraan
             boolean result;
             if (userId == 1) {
                 result = model.deleteKendaraanAdmin(kendaraanId);
